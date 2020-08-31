@@ -6,7 +6,7 @@ Created on Mon Aug 24 14:42:36 2020
 """
 
 metadata = {
-    'protocolName': 'Gibson, Transformation and Plating',
+    'protocolName': 'Gibson and Transformation',
     'author': 'Lachlan <lajamu@biosustain.dtu.dk',
     'source': 'Custom Protocol Request',
     'apiLevel': '2.2'
@@ -16,7 +16,8 @@ metadata = {
 
 def run(protocol): 
     """
-    Sets up and incubates a Gibson Reaction
+    Sets up and incubates a Gibson Reaction, then transforms the gibson product
+    into A. Bayli.
     """
     #Load Tips
     tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
@@ -28,7 +29,7 @@ def run(protocol):
     
     #Load temperature module
     temperature_module = protocol.load_module('temperature module', 3)
-    temp_rack = temperature_module.load_labware("opentrons_24_aluminumblock_nest_1.5ml_snapcap")
+    temp_rack = temperature_module.load_labware("opentrons_96_aluminumblock_generic_pcr_strip_200ul")
     temperature_module.set_temperature(50)
     
     
@@ -44,9 +45,14 @@ def run(protocol):
     
     #Fragment setups need to be hardcoded. Each nested list should describe the location of 
     #fragments that will generate a construct
+    
+    #Can write a function to make this setup easier (call PCR plate.wells from
+    #a number)
     fragments = [[pcrPlate.wells()[0], pcrPlate.wells()[1]], 
                  [pcrPlate.wells()[2], pcrPlate.wells()[3]]
                  ]
+    
+    nConstructs = len(fragments)
     
     def make_gibson(frags, dest):
         """
@@ -65,13 +71,20 @@ def run(protocol):
         
     #Incubation
     protocol.delay(minutes = 120)
+    ##Decide if want to switch to the p1000 and do a distribute for the LB
     
     protocol.comment("Add overnight culture to A1 on rack at position 9,\
                      and deep well plate preloaded with 450uL LB to position 6")
+    #Add overnight culture to prefilled LB.
+    p300Single.distribute(50, abayli, transformationPlate.wells()[0:nConstructs])
     
-    p300Single.distribute(50, abayli, transformationPlate.wells()[0:len(fragments)])
+    #Trasnfer 
+    for i in list(range(0,nConstructs)):
+        p20Single.transfer(2, temp_rack.wells()[i], transformationPlate.wells()[i])
     
     
+    
+    protocol.comment("Transformation placed in 30 degrees overnight")
     
     
     
