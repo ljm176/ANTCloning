@@ -22,7 +22,7 @@ def chunks(lst):
         yield lst[i:i + 2]
         
 #Number of Primer Pairs
-nPrimerPairs = 5
+nPrimerPairs = 10
 
 def run(protocol): 
     """
@@ -39,21 +39,25 @@ def run(protocol):
     #load Labware
     pcrPlate = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', '3')
     masterMixRack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', '4')
-    primerRack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', '5')
+    primerRack = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', '5')
+    templateRack = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', '6')
     
     #Define Location of master mix and water
     masterMix = masterMixRack.wells_by_name()["A1"]
-    template = masterMixRack.wells_by_name()["C1"]
+
     
     #Define location of primerp pairs and generate a list of pairs
     primers=primerRack.wells()[0:2*nPrimerPairs]
     primerPairs = list(chunks(primers))
+    for x in range(nPrimerPairs):
+        primerPairs[x].insert(0, templateRack.wells()[x])
+    
     
     def makePCRMix(primers, dest):
         """
         Adds template and primers to a well then mixes 3 x 20 uL
         """
-        p20Single.consolidate([2, 4, 4], [template, primers[0], primers[1]], dest, mix_after = (3, 20))
+        p20Single.consolidate([2, 4, 4], primers, dest, mix_after = (3, 20))
     
     #Distribute master mix to wells required for reaction
     p20Single.distribute(10, masterMix, pcrPlate.wells()[0:nPrimerPairs])
