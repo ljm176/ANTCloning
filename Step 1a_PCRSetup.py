@@ -56,7 +56,7 @@ def run(protocol):
         p20Single.consolidate([2, 4, 4], [template, primers[0], primers[1]], dest, mix_after = (3, 20))
     
     #Distribute master mix to wells required for reaction
-    p300Single.distribute(10, masterMix, pcrPlate.wells()[0:nPrimerPairs])
+    p20Single.distribute(10, masterMix, pcrPlate.wells()[0:nPrimerPairs])
     
     #Add primer pairs and template to reaction wells
     w = 0
