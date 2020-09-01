@@ -66,6 +66,7 @@ def run(protocol):
     w = 0
     for p in primerPairs:
         makePCRMix(p, pcrPlate.wells()[w])
+        w+=1
     
     
     
