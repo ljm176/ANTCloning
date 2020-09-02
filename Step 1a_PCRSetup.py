@@ -30,11 +30,11 @@ def run(protocol):
     """
     #Load Tips
     tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
-    tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
+    #tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
 
     #Load Pipettes
     p20Single = protocol.load_instrument('p20_single_gen2', 'right', tip_racks=tips20)
-    p300Single = protocol.load_instrument('p300_single', 'left', tip_racks=tips200)
+    #p300Single = protocol.load_instrument('p300_single', 'left', tip_racks=tips200)
     
     #load Labware
     pcrPlate = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', '3')
@@ -53,16 +53,19 @@ def run(protocol):
         primerPairs[x].insert(0, templateRack.wells()[x])
     
     
+
+    #Distribute master mix to wells required for reaction
+    p20Single.distribute(10, masterMix, pcrPlate.wells()[0:nPrimerPairs])
+    
+
+    
     def makePCRMix(primers, dest):
         """
         Adds template and primers to a well then mixes 3 x 20 uL
         """
         p20Single.consolidate([2, 4, 4], primers, dest, mix_after = (3, 20))
-    
-    #Distribute master mix to wells required for reaction
-    p20Single.distribute(10, masterMix, pcrPlate.wells()[0:nPrimerPairs])
-    
-    #Add primer pairs and template to reaction wells
+        #Add primer pairs and template to reaction wells
+   
     w = 0
     for p in primerPairs:
         makePCRMix(p, pcrPlate.wells()[w])
