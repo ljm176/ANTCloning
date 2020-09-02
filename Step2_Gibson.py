@@ -60,7 +60,7 @@ def run(protocol):
             p20Single.transfer(3.3, pcrPlate.wells()[f], dest, new_tip="always", touch_tip=True)
         if len(frags) == 2:
             p20Single.transfer(3.3, water, dest, new_tip="always", touch_tip=True)
-        p20Single.transfer(10, gibsonMasterMix, dest, new_tip="always", mix_after=(3, 20))
+        p20Single.transfer(10, gibsonMasterMix, dest, new_tip="always", mix_after=(1, 20))
 
     w=0
     for x in fragments:
