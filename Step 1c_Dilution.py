@@ -12,13 +12,13 @@ metadata = {
     'apiLevel': '2.2'
 }
 
-nReactions = 5
+nReactions = 10
 def run(protocol): 
     """
     Adds master mix and primers to PCR wells
     """
     #Load Tips
-    tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
+    tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
     tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
     
     
@@ -37,15 +37,11 @@ def run(protocol):
     
     
     rack= protocol.load_labware('opentrons_24_aluminumblock_nest_1.5ml_snapcap', '5')
-    water = rack.wells_by_name()["A1"]
-    dpn1 = rack.wells_by_name()["B1"]
-    
-    p300Single.distribute(21, water, dilutionPlate.wells()[0:nReactions])
-    p20Single.distribute(1, dpn1, dilutionPlate.wells()[0:nReactions])
-    
-    for w in list(range(0, 5)):
-        p20Single.transfer(15, pcrPlate.wells()[w], dilutionPlate.wells()[w],
-                           new_tip = "always", mix_after = (3, 20))
+    water_dpn = rack.wells_by_name()["A1"]
+
+    for i in range(nReactions):
+        p300Single.transfer(40, water_dpn, dilutionPlate.wells()[i])
+
         
     protocol.delay(minutes=15)
     temp_mod.set_temperature(4)
