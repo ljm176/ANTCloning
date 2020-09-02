@@ -28,15 +28,15 @@ def run(protocol):
     p300Single = protocol.load_instrument('p300_single', 'left', tip_racks=tips200)
     
     temp_mod = protocol.load_module("tempdeck", "7")
-    dilutionPlate = temp_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
+    dilutionPlate = temp_mod.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul')
     
     temp_mod.set_temperature(37)
     
     #load Labware
-    pcrPlate = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', '3')
+    pcrPlate = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', '3')
     
     
-    rack= protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', '5')
+    rack= protocol.load_labware('opentrons_24_aluminumblock_nest_1.5ml_snapcap', '5')
     water = rack.wells_by_name()["A1"]
     dpn1 = rack.wells_by_name()["B1"]
     
@@ -49,3 +49,4 @@ def run(protocol):
         
     protocol.delay(minutes=15)
     temp_mod.set_temperature(4)
+    
