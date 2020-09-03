@@ -32,7 +32,7 @@ def run(protocol):
     into A. Bayli.
     """
     #Load Tips
-    tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
+    tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
     tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
     
     #Load Pipettes
@@ -43,11 +43,11 @@ def run(protocol):
     
     
     #Load Labware
-    pcrPlate = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', '5')
+    pcrPlate = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', '5')
     masterMixRack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', '4')
     gibsonMasterMix = masterMixRack.wells_by_name()["A1"]
     water = masterMixRack.wells_by_name()["B1"]
-    gibson_rack = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', "6")
+    gibson_rack = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', "6")
     
 
     
