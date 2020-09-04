@@ -60,12 +60,12 @@ def run(protocol):
     
     #Load LB into neccesary wells
     p300Single.pick_up_tip()
-    p300Single.transfer(180, lb, [dilution1.wells()[0:nConstructs], dilution2.wells()[0:nConstructs]], new_tip="never")
+    p300Single.transfer(270, lb, [dilution1.wells()[0:nConstructs], dilution2.wells()[0:nConstructs]], new_tip="never")
     p300Single.drop_tip()
     
     def dispense_and_mix(vol, dest):
         p300Single.dispense(vol, dest)
-        p300Single.mix(4, 200, dest)
+        p300Single.mix(3, 250, dest)
     
     def dilute_and_spot(well, spot_vol):
         p300Single.pick_up_tip()
@@ -80,6 +80,6 @@ def run(protocol):
         p300Single.drop_tip()
         
     for w in list(range(nConstructs)):
-        dilute_and_spot(w, 25)
+        dilute_and_spot(w, 50)
         
     
