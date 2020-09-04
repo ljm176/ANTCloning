@@ -12,16 +12,16 @@ metadata = {
     'apiLevel': '2.2'
 }
 
-nConstructs = 6
+nConstructs = 8
 
 def run(protocol):
     
     #Load Tips
-    tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
+    #tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
     tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
 
     #Load Pipettes
-    p20Single = protocol.load_instrument('p20_single_gen2', 'right', tip_racks=tips20)
+    #p20Single = protocol.load_instrument('p20_single_gen2', 'right', tip_racks=tips20)
     p300Single = protocol.load_instrument('p300_single', 'left', tip_racks=tips200)
     
     #load labware
@@ -59,23 +59,27 @@ def run(protocol):
     
     
     #Load LB into neccesary wells
-    p300Single.distribute(90, lb, [dilution1.wells()[0:nConstructs], dilution2.wells()[0:nConstructs]])
+    p300Single.pick_up_tip()
+    p300Single.transfer(180, lb, [dilution1.wells()[0:nConstructs], dilution2.wells()[0:nConstructs]], new_tip="never")
+    p300Single.drop_tip()
+    
+    def dispense_and_mix(vol, dest):
+        p300Single.dispense(vol, dest)
+        p300Single.mix(4, 200, dest)
     
     def dilute_and_spot(well, spot_vol):
         p300Single.pick_up_tip()
-        p300Single.aspirate(10 + spot_vol, transformation.wells()[well])
+        p300Single.aspirate(20 + spot_vol, transformation.wells()[well])
         spot(agar1.wells()[well], spot_vol)
-        p300Single.dispense(10, dilution1.wells()[well])
-        p300Single.mix(4, 100, dilution1.wells()[well])
-        p300Single.aspirate(10 + spot_vol, dilution1.wells()[well])
+        dispense_and_mix(20, dilution1.wells()[well])
+        p300Single.aspirate(20 + spot_vol, dilution1.wells()[well])
         spot(agar2.wells()[well], spot_vol)
-        p300Single.dispense(10, dilution2.wells()[well])
-        p300Single.mix(4, 100, dilution2.wells()[well])
-        p300Single.aspirate(10 + spot_vol, dilution2.wells()[well])
+        dispense_and_mix(20, dilution2.wells()[well])
+        p300Single.aspirate(20 + spot_vol, dilution2.wells()[well])
         spot(agar3.wells()[well], spot_vol)
         p300Single.drop_tip()
         
     for w in list(range(nConstructs)):
-        dilute_and_spot(w, 10)
+        dilute_and_spot(w, 25)
         
     
