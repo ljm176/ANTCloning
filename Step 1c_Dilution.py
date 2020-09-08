@@ -18,13 +18,13 @@ def run(protocol):
     Adds master mix and primers to PCR wells
     """
     #Load Tips
-    tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
+   # tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
     tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
     
     
 
     #Load Pipettes
-    p20Single = protocol.load_instrument('p20_single_gen2', 'right', tip_racks=tips20)
+    #p20Single = protocol.load_instrument('p20_single_gen2', 'right', tip_racks=tips20)
     p300Single = protocol.load_instrument('p300_single', 'left', tip_racks=tips200)
     
     temp_mod = protocol.load_module("tempdeck", "7")
@@ -43,6 +43,6 @@ def run(protocol):
         p300Single.transfer(40, water_dpn, dilutionPlate.wells()[i])
 
         
-    protocol.delay(minutes=15)
+    protocol.delay(minutes=30)
     temp_mod.set_temperature(4)
     

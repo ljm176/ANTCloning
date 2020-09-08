@@ -29,7 +29,7 @@ def run(protocol):
     Adds master mix and primers to PCR wells
     """
     #Load Tips
-    tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
+    tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
     #tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
 
     #Load Pipettes
@@ -37,7 +37,7 @@ def run(protocol):
     #p300Single = protocol.load_instrument('p300_single', 'left', tip_racks=tips200)
     
     #load Labware
-    pcrPlate = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', '3')
+    pcrPlate = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', '3')
     masterMixRack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', '4')
     primerRack = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', '5')
     templateRack = protocol.load_labware('nest_96_wellplate_100ul_pcr_full_skirt', '6')

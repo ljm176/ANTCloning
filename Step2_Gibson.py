@@ -33,11 +33,11 @@ def run(protocol):
     """
     #Load Tips
     tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
-    tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
+    #tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
     
     #Load Pipettes
     p20Single = protocol.load_instrument('p20_single_gen2', 'right', tip_racks=tips20)
-    p300Single = protocol.load_instrument('p300_single', 'left', tip_racks=tips200)
+    #p300Single = protocol.load_instrument('p300_single', 'left', tip_racks=tips200)
     
 
     
