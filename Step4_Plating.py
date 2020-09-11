@@ -27,14 +27,14 @@ def run(protocol):
     #load labware
     #Transformation wellplates
     transformation = protocol.load_labware('usascientific_96_wellplate_2.4ml_deep', '7')
-    dilution1 = protocol.load_labware('usascientific_96_wellplate_2.4ml_deep', '8')
-    dilution2 = protocol.load_labware('usascientific_96_wellplate_2.4ml_deep', '9')
+    dilution1 = protocol.load_labware('corning_96_wellplate_360ul_flat', '8')
+    dilution2 = protocol.load_labware('corning_96_wellplate_360ul_flat', '9')
     
     #Agar plates
     
-    agar1 = protocol.load_labware("corning_24_wellplate_3.4ml_flat", "4")
-    agar2 = protocol.load_labware("corning_24_wellplate_3.4ml_flat", "5")
-    agar3 = protocol.load_labware("corning_24_wellplate_3.4ml_flat", "6")
+    agar1 = protocol.load_labware("corning_12_wellplate_6.9ml_flat", "4")
+    agar2 = protocol.load_labware("corning_12_wellplate_6.9ml_flat", "5")
+    agar3 = protocol.load_labware("corning_12_wellplate_6.9ml_flat", "6")
     
     
     lb_rack = protocol.load_labware("opentrons_6_tuberack_falcon_50ml_conical", "10")
@@ -69,13 +69,13 @@ def run(protocol):
     
     def dilute_and_spot(well, spot_vol):
         p300Single.pick_up_tip()
-        p300Single.aspirate(20 + spot_vol, transformation.wells()[well])
+        p300Single.aspirate(30 + spot_vol, transformation.wells()[well])
         spot(agar1.wells()[well], spot_vol)
-        dispense_and_mix(20, dilution1.wells()[well])
-        p300Single.aspirate(20 + spot_vol, dilution1.wells()[well])
+        dispense_and_mix(30, dilution1.wells()[well])
+        p300Single.aspirate(30 + spot_vol, dilution1.wells()[well])
         spot(agar2.wells()[well], spot_vol)
-        dispense_and_mix(20, dilution2.wells()[well])
-        p300Single.aspirate(20 + spot_vol, dilution2.wells()[well])
+        dispense_and_mix(30, dilution2.wells()[well])
+        p300Single.aspirate(30 + spot_vol, dilution2.wells()[well])
         spot(agar3.wells()[well], spot_vol)
         p300Single.drop_tip()
         
