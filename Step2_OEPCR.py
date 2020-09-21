@@ -25,7 +25,7 @@ fragments = [
                
 
 
-
+nFragments = 10
 def run(protocol): 
     """
     Sets up and incubates a Gibson Reaction, then transforms the gibson product
@@ -43,13 +43,16 @@ def run(protocol):
     
     
     #Load Labware
-    pcrPlate = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', '5')
-    masterMixRack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', '4')
+    pcrPlate = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', '4')
+    masterMixRack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', '2')
     gibsonMasterMix = masterMixRack.wells_by_name()["A1"]
     water = masterMixRack.wells_by_name()["B1"]
-    pcr_rack = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', "6")
-    dil_plate = protocol.load_labware("opentrons_96_aluminumblock_generic_pcr_strip_200ul", "7")
-
+    
+    OEpcr_rack = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', "6")
+    dil_plate = protocol.load_labware("opentrons_96_aluminumblock_generic_pcr_strip_200ul", "5")
+    
+    for i in range(nFragments):
+        p20Single.consolidate([10, 5], [water, pcrPlate.wells()[i]], dil_plate.wells()[i], mix_after=(2,15))
     
     def make_OE_PCR(frags, dest):
         """
@@ -57,11 +60,7 @@ def run(protocol):
         """
         
         for f in frags:
-            p20Single.pick_up_tip()
-            p20Single.transfer(10, water, dil_plate.wells()[f], new_tip="never")
-            p20Single.transfer(5, pcrPlate.wells()[f], dil_plate.wells()[f], mix_after=(2, 15), new_tip="never")
-            p20Single.transfer(3.3, dil_plate.wells()[f], dest, new_tip="never", touch_tip=True)
-            p20Single.drop_tip()
+            p20Single.transfer(3.3, dil_plate.wells()[f], dest, new_tip="always", touch_tip=True)
         if len(frags) == 2:
             p20Single.transfer(3.3, water, dest, new_tip="always", touch_tip=True)
 
@@ -71,7 +70,7 @@ def run(protocol):
 
     w=0
     for x in fragments:
-        make_OE_PCR(x, pcr_rack.wells()[w])
+        make_OE_PCR(x, OEpcr_rack.wells()[w])
         w+=1
         
 
