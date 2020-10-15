@@ -10,4 +10,5 @@ There are four steps in the workflow performed in the robot:
 3. Transformation
 4. Plating
 
+![image](https://user-images.githubusercontent.com/43517811/96116935-8ebf4280-0ee9-11eb-916c-104b118a4f81.png)
 
