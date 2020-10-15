@@ -23,10 +23,12 @@ def chunks(lst):
         
 #Number of Primer Pairs
 nPrimerPairs = 10
+#Define if sinlge or multiple templates will be used
+singleTemplate = False
 
 def run(protocol): 
     """
-    Adds master mix and primers to PCR wells
+    Adds master mix, primers and template to PCR wells
     """
     #Load Tips
     tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
@@ -49,8 +51,13 @@ def run(protocol):
     #Define location of primerp pairs and generate a list of pairs
     primers=primerRack.wells()[0:2*nPrimerPairs]
     primerPairs = list(chunks(primers))
+
+    #Add template location to list
     for x in range(nPrimerPairs):
-        primerPairs[x].insert(0, templateRack.wells()[x])
+        if singleTemplate:
+            primerPairs[x].insert(0, templateRack.wells()[0])
+        else:
+            primerPairs[x].insert(0, templateRack.wells()[x])
     
     
 
