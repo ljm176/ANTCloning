@@ -15,10 +15,10 @@ metadata = {
 nReactions = 10
 def run(protocol): 
     """
-    Adds master mix and primers to PCR wells
+    Adds dpn1 solution to PCR reaction to digest template DNA and dilute PCR product for downstream applications. 
     """
     #Load Tips
-   # tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
+    #tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
     tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
     
     

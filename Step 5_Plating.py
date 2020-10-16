@@ -15,7 +15,9 @@ metadata = {
 nConstructs = 8
 
 def run(protocol):
-    
+    """
+    Plates a transformed A. Baylyi culture onto LB Agar. 
+    """
     #Load Tips
     #tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
     tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
@@ -42,11 +44,11 @@ def run(protocol):
     
 
     def spot(dest, spot_vol):
-        """Takes a diluted transformed culture and spots 50 microlitres onto agar 
+        """Takes a diluted transformed culture and spots the defined volume onto agar 
         in a Nunc omnitray"""
 
 
-        SAFE_HEIGHT = 15  # height avoids collision with agar tray.
+        SAFE_HEIGHT = 15  
         spotting_dispense_rate=0.025 
 
         p300Single.move_to(dest.top(SAFE_HEIGHT))

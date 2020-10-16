@@ -11,7 +11,9 @@ metadata = {
 nConstructs = 8    
 
 def run(protocol):
-    
+    """
+    Distributes A. Baylyi culture to a deep well plate and transforms OE PCR Product
+    """
         #Load Tips
         tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
         tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]

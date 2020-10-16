@@ -28,8 +28,7 @@ fragments = [
 nFragments = 10
 def run(protocol): 
     """
-    Sets up and incubates a Gibson Reaction, then transforms the gibson product
-    into A. Bayli.
+    Sets up an overlap extension PCR reaction. 
     """
     #Load Tips
     tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]

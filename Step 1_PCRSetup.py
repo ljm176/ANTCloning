@@ -28,7 +28,9 @@ singleTemplate = False
 
 def run(protocol): 
     """
-    Adds master mix, primers and template to PCR wells
+    Adds master mix, primers and template to PCR wells. Primers should be set up pairwise moving down columns. 
+    Template should be either in well A1 of the template plate when using a single template, or filled down columns 
+    to correspond to the primer pairs (when using multiple templates).  
     """
     #Load Tips
     tips20= [protocol.load_labware('opentrons_96_tiprack_20ul', '1')]
