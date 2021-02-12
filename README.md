@@ -1,7 +1,7 @@
 # Automated Natural Transformation (ANT) using A. Bayli
 
 ## Description
-This repository contains the code for operation of the Opentrons OT2 robot described in the publication *Automated Cloning by Natural Transformation* by Jiang et al. (Link to be added once available)
+This repository contains the code for operation of the Opentrons OT2 robot described in the publication *Automated Cloning by Natural Transformation* by Jiang et al. (https://pubs.acs.org/doi/10.1021/acssynbio.0c00240)
 
 There are four steps in the workflow performed in the robot: 
 
