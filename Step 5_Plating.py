@@ -12,14 +12,14 @@ metadata = {
     'apiLevel': '2.2'
 }
 
-nConstructs = 8
+nConstructs = 32
 
 def run(protocol):
     """
     Plates a transformed A. Baylyi culture onto LB Agar. 
     """
     #Load Tips
-    #tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
+    tips20= [protocol.load_labware('opentrons_96_tiprack_300ul', '1')]
     tips200 = [protocol.load_labware('opentrons_96_tiprack_300ul', '2')]
 
     #Load Pipettes
